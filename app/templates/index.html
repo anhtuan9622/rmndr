@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="p-3 p-md-5" id="middle">
+    <div class="col-auto mb-5">
+        <h3>new task</h3>
+    </div>
+    <div class="col-auto mb-4">
+        <form id="create_task" action="{{url_for('create_task')}}" method="POST">
+            <div class="form-group row mb-3">
+                {{ task_form.task_name.label(class='col-4 col-form-label', for='task_name') }}
+                <div class="col-8">
+                    {{ task_form.task_name(class='form-control', placeholder='name', autocomplete='off') }}
+                </div>
+            </div>
+            
+            <div class="form-group row mb-3">
+                {{ task_form.task_due.label(class='col-4 col-form-label', for='task_due') }}
+                <div class="col-8">
+                    {{ task_form.task_due(class='form-control', id='task_due', autocomplete='off') }}
+                </div>
+            </div>
+            
+            <div class="form-group row mb-3">
+                {{ task_form.task_remind.label(class='col-4 col-form-label', for='task_remind') }}
+                <div class="col-8">
+                    {{ task_form.task_remind(class='form-control', id='task_remind', autocomplete='off') }}
+                </div>
+            </div>
+            
+            <div class="row my-4">
+                <div class="col-auto">
+                    {{ task_form.create(class='btn btn-outline-dark btn-sm') }}
+                </div>
+                
+                <div class="col-auto">
+                    <input type="button" class="btn btn-outline-dark btn-sm" onclick="reset()" value="start again">
+                </div>
+            </div>
+        
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="row">
+                {% for message in messages %}
+                <div class="col-auto">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+            
+        </form>
+    </div>
+</div>
+
+{% include "task_list.html" %}
+{% endblock %}

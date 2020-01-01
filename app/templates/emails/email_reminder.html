@@ -1,0 +1,9 @@
+<p>hi there,</p>
+</br></br>
+<p>below is your task reminder:</p>
+</br></br>
+<p>task: {{ task.task_name }}</p>
+<p>due date: {%if task.task_due %}{{ task.task_due | datetimelocal }}{% else %}none{% endif %}</p>
+<p>remind on: {%if task.task_remind %}{{ task.task_remind | datetimelocal }}{% else %}none{% endif %}</p>
+</br></br>
+<p>rmndr v1.0</p>

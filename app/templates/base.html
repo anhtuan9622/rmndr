@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, maximum-scale=1">
+    <title>{{ title }} | rmndr - task reminder app</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-datetimepicker.css') }}">     -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flatpickr.css') }}">
+</head>
+
+<body>
+    <div class="container p-0">
+        <div class="p-3 p-md-5" id="left">
+            <div class="col-auto mb-4">
+                <h3><a href="{{ url_for('index') }}">rmndr</a></h3>
+            </div>
+            {% if current_user.is_anonymous %}
+            <div class="col-auto mb-4">
+                <h6>v1.0</h6>
+                <h6><a href="http://hoanganhtuan.name/">&copy; hoanganhtuan.name</a></h6>
+            </div>
+            {% else %}
+            <div class="col-auto mb-4">
+                <h6>{{ current_user.user_email }}</h6>
+                <span id="clock_local"></span>
+            </div>
+            <div class="col-auto mb-4">
+                <a href="{{ url_for('logout') }}"><button type="button" class="btn btn-outline-dark btn-sm">log me out</button></a>
+            </div>
+            {% endif %}
+        </div>
+        
+        {% block content %}{% endblock %}
+    </div>
+    <!-- <script src="{{ url_for('static', filename='js/script.js') }}"></script> -->
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+    <!-- <script src="https://kit.fontawesome.com/ae8216a715.js" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+    <!-- <script src="{{ url_for('static', filename='js/bootstrap-datetimepicker.js') }}"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
+    <script type="text/javascript">
+        // display datetimepicker
+        // $('#task_due').datetimepicker({format: 'yyyy-mm-dd hh:ii'});
+        // $('#task_remind').datetimepicker({format: 'yyyy-mm-dd hh:ii'});
+        $("#task_due").flatpickr({
+            altInput: true,
+            altFormat: "F j, Y at h:i K",
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+        }
+        );
+        $("#task_remind").flatpickr({
+            altInput: true,
+            altFormat: "F j, Y at h:i K",
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+        }
+        );
+        
+        // display current time
+        window.onload = setInterval(clockLocal, 1000);
+        function clockLocal(){
+            document.getElementById("clock_local").innerHTML = new Date().toLocaleString('en-US', {timeStyle: 'long', dateStyle: 'long'});
+        }
+
+        //reset forms
+        function reset() {
+            document.getElementById("create_task").reset();
+        }
+    </script>
+</body>
+
+</html>

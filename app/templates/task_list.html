@@ -1,0 +1,53 @@
+<div class="p-3 p-md-5" id="right">
+    <div class="col-auto mb-5">
+        <h3>task list</h3>
+    </div>
+    <div class="col-auto mb-5">
+        <ul class="list-unstyled" id="sortable">
+            {% for tasks in task|reverse %}
+                <li class="ui-state-default mb-4 pb-4">
+                    <div class="row">
+                        <div class="col-auto">
+                            <span>id: {{ tasks.task_id }}</span></br>
+                            <span>task: {{ tasks.task_name }}</span></br>
+                            <span>due date: {%if tasks.task_due %}{{ tasks.task_due | datetimelocal }}{% else %}none{% endif %}</span></br>
+                            <span>remind on: {%if tasks.task_remind %}{{ tasks.task_remind | datetimelocal }}{% else %}none{% endif %}</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-auto">
+                            <form action="{{ url_for('edit_task', task_id=tasks.task_id) }}", method="GET">{{ task_form.edit(class='btn btn-outline-dark btn-sm') }}</form>
+                        </div>
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#delete{{tasks.task_id}}">erase me</button>
+                            <!-- Modal -->
+                            <div class="modal fade" tabindex="-1" id="delete{{tasks.task_id}}" role="dialog">
+                                <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <p class="modal-title">are you sure?</p>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h6>task: {{tasks.task_name}}</h6>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal">nope...</button>
+                                        <form action="{{ url_for('delete_task', task_id=tasks.task_id) }}", method="POST">{{ task_form.delete(class='btn btn-outline-dark btn-sm') }}</form>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </li>
+            {% else %}
+                <span class="pl-1" id="notask">sorry no tasks available</span>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
