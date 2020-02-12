@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono">
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-datetimepicker.css') }}">     -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/flatpickr.css') }}">
 </head>
 
@@ -34,21 +33,13 @@
             </div>
             {% endif %}
         </div>
-        
         {% block content %}{% endblock %}
     </div>
-    <!-- <script src="{{ url_for('static', filename='js/script.js') }}"></script> -->
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
-    <!-- <script src="https://kit.fontawesome.com/ae8216a715.js" crossorigin="anonymous"></script> -->
-    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-    <!-- <script src="{{ url_for('static', filename='js/bootstrap-datetimepicker.js') }}"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     
     <script type="text/javascript">
-        // display datetimepicker
-        // $('#task_due').datetimepicker({format: 'yyyy-mm-dd hh:ii'});
-        // $('#task_remind').datetimepicker({format: 'yyyy-mm-dd hh:ii'});
         $("#task_due").flatpickr({
             altInput: true,
             altFormat: "F j, Y at h:i K",
