@@ -20,9 +20,9 @@ class Config(object):
     MAIL_PORT = 587
     MAIL_USE_TLS = True
     MAIL_USE_SSL = False
-    MAIL_USERNAME = 'your@gmail.com'
-    MAIL_PASSWORD = 'password'
-    ADMINS = ['your@gmail.com']
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or 'your@gmail.com'
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or 'password'
+    ADMINS = [MAIL_USERNAME]
     
     #config Celery broker
     CELERY_BROKER_URL = os.environ.get('REDIS_URL') or 'redis://127.0.0.1:6379'
