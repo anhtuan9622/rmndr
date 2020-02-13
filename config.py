@@ -16,12 +16,12 @@ class Config(object):
 
     #config mail server
     DEBUG = True
-    MAIL_SERVER = 'smtp.gmail.com'
-    MAIL_PORT = 587
+    MAIL_SERVER = os.environ.get('MAIL_SERVER') or 'smtp.gmail.com'
+    MAIL_PORT = os.environ.get('MAIL_PORT') or 587
     MAIL_USE_TLS = True
     MAIL_USE_SSL = False
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or 'your@gmail.com'
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or 'password'
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or 'yourpassword'
     ADMINS = [MAIL_USERNAME]
     
     #config Celery broker
